@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConversationSchema } from './conversations.schema';
 import { MessagesModule } from '../messages/messages.module';
 import { ElasticsearchModule } from '../elasticsearch/elasticsearch.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ElasticsearchModule } from '../elasticsearch/elasticsearch.module';
     ]),
     forwardRef(() => MessagesModule),
     ElasticsearchModule,
+    AuthModule,
   ],
   controllers: [ConversationsController],
   providers: [ConversationsService],

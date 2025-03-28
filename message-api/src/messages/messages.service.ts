@@ -33,17 +33,11 @@ export class MessagesService {
     const payload = {
       conversationId,
       senderId: userDetails.userId,
+      tenantId: userDetails.tenantId,
       content,
       metadata,
     };
     const message = await this.messagesModel.create(payload);
-    // console.log('🚀 ~ MessagesService ~ message:', message);
-    console.log(
-      JSON.stringify({
-        payload,
-        tenantId: userDetails.tenantId,
-      }),
-    );
 
     await this.conversationsService.addMessageToConversation(
       conversationId,
@@ -65,6 +59,7 @@ export class MessagesService {
     conversationId: string,
     page: number = 1,
     limit: number = 30,
+    userDetails: UserDetails,
   ): Promise<PaginationResult<Messages>> {
     const skip = (page - 1) * limit;
 
@@ -75,8 +70,12 @@ export class MessagesService {
 
     // Fetch paginated messages
     const messages = await this.messagesModel
-      .find({ conversationId: new Types.ObjectId(conversationId) })
-      .sort({ createdAt: -1 }) // Sort by newest first
+      .find({
+        conversationId,
+        tenantId: userDetails.tenantId,
+        senderId: userDetails.userId,
+      })
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .exec();

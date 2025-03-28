@@ -12,6 +12,7 @@ import { Messages } from '../messages/messages.schema';
 import { MessagesService } from '../messages/messages.service';
 import { PaginationResult } from '../utils/pagination.dto';
 import { ElasticsearchService } from '../elasticsearch/elasticsearch.service';
+import { UserDetails } from '../users/users.dto';
 
 @Injectable()
 export class ConversationsService {
@@ -49,6 +50,7 @@ export class ConversationsService {
     conversationId: string,
     page: number,
     limit: number,
+    userDetails: UserDetails,
   ): Promise<PaginationResult<Messages>> {
     // Ensure the conversation exists
     const conversation = await this.conversationsModel.findById(conversationId);
@@ -61,16 +63,19 @@ export class ConversationsService {
       conversationId,
       page,
       limit,
+      userDetails,
     );
   }
 
   async searchMessages(
     conversationId: string,
     search: string,
+    userDetails: UserDetails,
   ): Promise<Messages[]> {
     return await this.elasticsearchService.searchMessages(
       conversationId,
       search,
+      userDetails,
     );
   }
 }

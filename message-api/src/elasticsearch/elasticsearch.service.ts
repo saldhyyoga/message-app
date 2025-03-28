@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Client } from '@elastic/elasticsearch';
 import { Messages } from '../messages/messages.schema';
+import { UserDetails } from '../users/users.dto';
 
 @Injectable()
 export class ElasticsearchService {
@@ -28,6 +29,7 @@ export class ElasticsearchService {
   async searchMessages(
     conversationId: string,
     search: string,
+    userDetails: UserDetails,
   ): Promise<Messages[]> {
     try {
       const messages = await this.client.search({
@@ -36,6 +38,20 @@ export class ElasticsearchService {
           query: {
             bool: {
               must: [
+                {
+                  term: {
+                    senderId: {
+                      value: userDetails.userId,
+                    },
+                  },
+                },
+                {
+                  term: {
+                    tenantId: {
+                      value: userDetails.tenantId,
+                    },
+                  },
+                },
                 {
                   term: {
                     conversationId: {

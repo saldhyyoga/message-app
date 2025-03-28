@@ -22,6 +22,9 @@ export class Messages {
   @Prop({ type: Object, default: {} })
   metadata?: Record<string, unknown>;
 
+  @Prop({ required: true })
+  tenantId: string;
+
   get id(): string {
     return this.id.toString();
   }

@@ -26,7 +26,6 @@ export class AuthService {
     access_token: string;
   }> {
     const validatedUser = await this.validateUser(username, password);
-    console.log('🚀 ~ AuthService ~ login ~ validatedUser:', validatedUser);
     const payload = {
       userId: validatedUser.id,
       tenantId: validatedUser.tenantId,
