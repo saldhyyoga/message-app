@@ -56,7 +56,7 @@ The project follows a [Monolithic/Microservices/Clean Architecture] approach:
 
    - The architecture follows a modular approach, making it easy to scale individual components.
 
-   - Using a message queue (AWS SQS/Kafka) allows asynchronous processing, preventing API bottlenecks.
+   - Using a message queue (Kafka) allows asynchronous processing, preventing API bottlenecks.
 
    - Elasticsearch enables efficient searching and indexing, ensuring fast retrieval of messages even with large datasets.
 
@@ -70,7 +70,7 @@ The project follows a [Monolithic/Microservices/Clean Architecture] approach:
 
 3. **Performance**:
 
-   - Asynchronous processing via Kafka/SQS prevents blocking operations, improving API response times.
+   - Asynchronous processing via Kafka prevents blocking operations, improving API response times.
 
    - Elasticsearch optimizes full-text search, making message lookups fast and efficient.
 
