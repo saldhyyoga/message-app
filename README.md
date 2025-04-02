@@ -45,7 +45,7 @@ The project follows a [Monolithic/Microservices/Clean Architecture] approach:
 - **API Layer**: Handles requests and responses.
 - **Service Layer**: Contains business logic.
 - **Data Layer**: Handles interactions with the database with Mongoose ORM.
-- **Message Queue**: Uses AWS SQS/Kafka for async processing.
+- **Message Queue**: Uses Kafka for async processing.
 - **Message Search**: Use Elasticsearch
 - **Message API**: API Layer to handle request and response,send message to kafka.
 - **Message Processor**: API Layer process message that received and index it to Elasticsearch.
